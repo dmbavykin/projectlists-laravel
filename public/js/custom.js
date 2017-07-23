@@ -47,6 +47,43 @@ $(function () {
         }
     });
 
+    $('#login-form').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true,
+                minlength: 6
+
+            },
+            password: {
+                required: true,
+                minlength: 6
+            }
+        },
+        errorElement: 'div',
+        errorClass: "text-danger",
+        validClass: 'input-success',
+        submitHandler: function () {
+            $.ajax({
+                url: '/login',
+                data: getAuthData(),
+                type: 'POST',
+                success: function () {
+                    console.log('All good');
+                },
+                error: function() {
+                    console.log('Something gonna bad');
+                }
+            });
+        },
+        invalidHandler: function () {
+            console.log('error');
+        },
+        errorPlacement: function(error, element) {
+            let myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
+            error.insertBefore(myElem);
+        }
+    });
 
 });
 
@@ -56,5 +93,12 @@ function getRegistrationData() {
         email: $('#email').val(),
         password: $('#password').val(),
         password_confirmation: $('#password-confirm').val()
+    }
+}
+
+function getAuthData() {
+    return {
+        email: $('#email').val(),
+        password: $('#password').val()
     }
 }

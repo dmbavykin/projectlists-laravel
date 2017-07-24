@@ -101,6 +101,39 @@ $(function () {
         });
     });
 
+    $('#create-project').validate({
+        rules: {
+            name: 'required'
+        },
+        submitHandler: function () {
+            var name = $('#new-project-name');
+            $.ajax({
+                url: '/projects',
+                type: 'POST',
+                data: {
+                    name: name.val()
+                },
+                success: function (data) {
+                    $('.new-project').modal('hide');
+                    name.val('');
+                    $(data).insertBefore('.add-project-block');
+                },
+                error: function () {
+                    console.log('Something wrong');
+                }
+
+            });
+        },
+        invalidHandler: function () {
+            console.log('error');
+        },
+        errorPlacement: function(error, element) {
+            var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
+            error.insertBefore(myElem);
+        }
+    });
+
+
 });
 
 function getRegistrationData() {

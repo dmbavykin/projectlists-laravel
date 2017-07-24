@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
@@ -21,7 +22,14 @@ class ProjectsController extends Controller
 
     public function store(Request $request)
     {
-
+        $project = new Project;
+        $project->name = $request->name;
+        $project->user_id = Auth::user()->id;
+        $project->save();
+        return view('projects.new_project', [
+            'name' => $project->name,
+            'id' => $project->id
+        ]);
     }
 
     public function show($id)

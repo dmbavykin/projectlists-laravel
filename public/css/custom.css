@@ -51,6 +51,18 @@ div.tl-title {
     margin-top: 30px;
 }
 
-.add-list-block {
+.add-project-block {
     margin-top: 20px;
+}
+
+.add-project-block button {
+    background-color: #4976b2;
+}
+
+.modal-content {
+    padding: 10px 10px;
+}
+
+.modal-content button{
+    margin-top: 15px;
 }

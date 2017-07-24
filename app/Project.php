@@ -10,6 +10,8 @@ class Project extends Model
 
     protected $table = 'projects';
 
+    protected $fillable = ['name', 'user_id'];
+
     public function getProjects()
     {
         $projects = Project::OfUser(Auth::user()->id)->get();

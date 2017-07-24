@@ -2,11 +2,11 @@
     <div class="container-fluid tl-block">
         <div class="container">
             <div class="tl-head">
-                <input type="hidden" name="list" value="/projects/{{ $project['id'] }}">
+                <input type="hidden" name="project" value="/projects/{{ $project['id'] }}">
                 <div class="col-md-1 text-center"><i class="glyphicon glyphicon-calendar"></i></div>
                 <div class="col-md-9 tl-title">{{ $project['name'] }}</div>
                 <div class="col-md-1"><i class="glyphicon glyphicon-pencil"></i></div>
-                <div class="col-md-1"><i class="glyphicon glyphicon-trash remove-list"></i></div>
+                <div class="col-md-1"><i class="glyphicon glyphicon-trash remove-project"></i></div>
             </div>
         </div>
         <div class="container">

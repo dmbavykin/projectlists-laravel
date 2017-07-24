@@ -85,6 +85,22 @@ $(function () {
         }
     });
 
+    $('i.remove-project').click(function () {
+
+        var url = $(this).parent().siblings('input[name=project]').val();
+        var list = $(this).closest('.container-fluid.tl-block');
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function () {
+                list.remove();
+            },
+            error: function () {
+                console.log('Smthing wrong!')
+            }
+        });
+    });
+
 });
 
 function getRegistrationData() {

@@ -42,6 +42,6 @@ class ProjectsController extends Controller
 
     public function destroy($id)
     {
-
+        Project::destroy($id);
     }
 }

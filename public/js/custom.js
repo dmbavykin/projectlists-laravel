@@ -30,8 +30,8 @@ $(function () {
                 url: '/register',
                 data: getRegistrationData(),
                 type: 'POST',
-                success: function () {
-                    console.log('All good');
+                success: function (data) {
+                    setProjectlistsData(data);
                 },
                 error: function() {
                     console.log('Something gonna bad');
@@ -68,8 +68,8 @@ $(function () {
                 url: '/login',
                 data: getAuthData(),
                 type: 'POST',
-                success: function () {
-                    console.log('All good');
+                success: function (data) {
+                    setProjectlistsData(data);
                 },
                 error: function() {
                     console.log('Something gonna bad');
@@ -101,4 +101,8 @@ function getAuthData() {
         email: $('#email').val(),
         password: $('#password').val()
     }
+}
+
+function setProjectlistsData(data) {
+    $('div#app').html(data);
 }

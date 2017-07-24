@@ -23,3 +23,30 @@ div.text-danger + input.input-success:focus {
     -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #67b168;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #67b168;
 }
+
+div.tl-head {
+    background-color: #4976b2;
+    height: 40px;
+    padding-left:10px;
+
+}
+
+div.tl-head div {
+    padding: 10px 0;
+}
+
+.tl-head div i.glyphicon-trash {
+    cursor: pointer;
+    color: #fff;
+
+}
+
+div.tl-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.tl-block {
+    margin-top: 30px;
+}

@@ -184,6 +184,43 @@ $(function () {
         });
     });
 
+    $('.change-task-btn').click(function () {
+        $('.task-name').modal('show');
+        $('#change-task input[name=task]').val($(this).parent().siblings('input[name=task_id]').val());
+        $('#change-task input[name=content]').val($(this).parent().siblings('.task-content').text());
+    });
+
+    $('#change-task').validate({
+        rules: {
+            content: 'required'
+        },
+        submitHandler: function () {
+            $.ajax({
+                url: '/tasks/' + $('#change-task input[name=task]').val(),
+                type: 'PATCH',
+                data: {
+                    content: $('#change-task input[name=content]').val()
+                },
+                success: function (data) {
+                    $('.task-name').modal('hide');
+                    $('.task' + data['id'] + ' .task-content').text(data['content']);
+                },
+                error: function () {
+                    console.log('Something wrong');
+                }
+
+            });
+        },
+        invalidHandler: function () {
+            console.log('error');
+        },
+        errorPlacement: function(error, element) {
+            var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
+            error.insertBefore(myElem);
+        }
+    });
+
+
 });
 
 function getRegistrationData() {

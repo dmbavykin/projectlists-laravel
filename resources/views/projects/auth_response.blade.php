@@ -27,9 +27,9 @@
                         <div class="col-md-1">
                             <input type="checkbox" name="" id="">
                         </div>
-                        <div class="col-md-8">{{ $task['content'] }}</div>
+                        <div class="col-md-8 task-content">{{ $task['content'] }}</div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-1"><i class="glyphicon glyphicon-pencil"></i></div>
+                        <div class="col-md-1"><i class="glyphicon glyphicon-pencil change-task-btn"></i></div>
                         <div class="col-md-1"><i class="glyphicon glyphicon-trash"></i></div>
                     </div>
                 @endforeach

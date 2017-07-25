@@ -169,6 +169,20 @@ $(function () {
         }
     });
 
+    $('.task .glyphicon-trash').click(function () {
+        var url = 'tasks/' + $(this).parent().siblings('input[name=task_id]').val();
+        var task = $(this).closest('.task');
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function () {
+                task.remove();
+            },
+            error: function () {
+                console.log('Smthing wrong!')
+            }
+        });
+    });
 
 });
 

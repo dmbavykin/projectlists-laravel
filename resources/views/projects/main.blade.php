@@ -24,7 +24,7 @@
             <div class="container">
                 <div class="tl-body">
                     @foreach($projectlists[$project['name']] as $task)
-                        <div class="row task">
+                        <div class="task">
                             <input type="hidden" name="task_id" value="{{ $task['id'] }}">
                             <input type="hidden" name="order" value="{{ $task['order'] }}">
                             <div class="col-md-1">

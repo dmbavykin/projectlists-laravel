@@ -2,13 +2,13 @@
 
 @section('content')
     @foreach($projects as $project)
-        <div class="container-fluid tl-block">
+        <div class="container-fluid tl-block project{{ $project['id'] }}">
             <div class="container">
                 <div class="tl-head">
                     <input type="hidden" name="project" value="/projects/{{ $project['id'] }}">
                     <div class="col-md-1 text-center"><i class="glyphicon glyphicon-calendar"></i></div>
                     <div class="col-md-9 tl-title">{{ $project['name'] }}</div>
-                    <div class="col-md-1"><i class="glyphicon glyphicon-pencil"></i></div>
+                    <div class="col-md-1"><i class="glyphicon glyphicon-pencil change-project-btn"></i></div>
                     <div class="col-md-1"><i class="glyphicon glyphicon-trash remove-project"></i></div>
                 </div>
             </div>
@@ -40,5 +40,5 @@
             </div>
         </div>
     @endforeach
-    @include('projects.creating_project_block')
+    @include('projects.modals')
 @stop

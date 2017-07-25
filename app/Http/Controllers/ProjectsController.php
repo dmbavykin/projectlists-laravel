@@ -32,20 +32,15 @@ class ProjectsController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
-
-    }
-
-    public function edit($id)
-    {
-
-    }
-
-
     public function update(Request $request, $id)
     {
-
+        $project = Project::find($id);
+        $project->name = $request->name;
+        $project->save();
+        return array(
+            'id' => $project->id,
+            'name' => $project->name
+        );
     }
 
     public function destroy($id)

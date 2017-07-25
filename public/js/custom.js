@@ -133,6 +133,42 @@ $(function () {
         }
     });
 
+    $('.change-project-btn').click(function () {
+        $('.project-name').modal('show');
+        $('#change-project input[name=project]').val($(this).parent().siblings('input[name=project]').val());
+        $('#change-project input[name=name]').val($(this).parent().siblings('.tl-title').text());
+    });
+
+    $('#change-project').validate({
+        rules: {
+            name: 'required'
+        },
+        submitHandler: function () {
+            $.ajax({
+                url: $('#change-project input[name=project]').val(),
+                type: 'PATCH',
+                data: {
+                    name: $('#change-project input[name=name]').val()
+                },
+                success: function (data) {
+                    $('.project-name').modal('hide');
+                    $('.project' + data['id'] + ' .tl-title').text(data['name']);
+                },
+                error: function () {
+                    console.log('Something wrong');
+                }
+
+            });
+        },
+        invalidHandler: function () {
+            console.log('error');
+        },
+        errorPlacement: function(error, element) {
+            var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
+            error.insertBefore(myElem);
+        }
+    });
+
 
 });
 

@@ -37,4 +37,6 @@
         </div>
     </div>
 @endforeach
-@include('projects.creating_project_block')
+@include('projects.modals')
+
+

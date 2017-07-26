@@ -85,22 +85,6 @@ $(function () {
         }
     });
 
-    $('i.remove-project').click(function () {
-
-        var url = $(this).parent().siblings('input[name=project]').val();
-        var list = $(this).closest('.container-fluid.tl-block');
-        $.ajax({
-            url: url,
-            type: 'DELETE',
-            success: function () {
-                list.remove();
-            },
-            error: function () {
-                console.log('Smthing wrong!')
-            }
-        });
-    });
-
     $('#create-project').validate({
         rules: {
             name: 'required'
@@ -133,11 +117,7 @@ $(function () {
         }
     });
 
-    $('.change-project-btn').click(function () {
-        $('.project-name').modal('show');
-        $('#change-project input[name=project]').val($(this).parent().siblings('input[name=project]').val());
-        $('#change-project input[name=name]').val($(this).parent().siblings('.tl-title').text());
-    });
+    bindProjectKeys();
 
     $('#change-project').validate({
         rules: {
@@ -153,6 +133,7 @@ $(function () {
                 success: function (data) {
                     $('.project-name').modal('hide');
                     $('.project' + data['id'] + ' .tl-title').text(data['name']);
+                    bindProjectKeys();
                 },
                 error: function () {
                     console.log('Something wrong');
@@ -222,6 +203,31 @@ $(function () {
 
 
 });
+
+function bindProjectKeys() {
+    $('div#app').off();
+    $('div#app').on('click', '.change-project-btn', function() {
+        $('.project-name').modal('show');
+        $('#change-project input[name=project]').val($(this).parent().siblings('input[name=project]').val());
+        $('#change-project input[name=name]').val($(this).parent().siblings('.tl-title').text());
+    });
+
+    $('div#app').on('click', 'i.remove-project', function() {
+        var url = $(this).parent().siblings('input[name=project]').val();
+        var list = $(this).closest('.container-fluid.tl-block');
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function () {
+                list.remove();
+            },
+            error: function () {
+                console.log('Smthing wrong!')
+            }
+        });
+    });
+
+}
 
 function getRegistrationData() {
     return {

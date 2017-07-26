@@ -1,5 +1,5 @@
 @foreach($projects as $project)
-    <div class="container-fluid tl-block">
+    <div class="container-fluid tl-block project{{ $project['id'] }}">
         <div class="container">
             <div class="tl-head">
                 <input type="hidden" name="project" value="/projects/{{ $project['id'] }}">
@@ -21,11 +21,11 @@
         <div class="container">
             <div class="tl-body">
                 @foreach($projectlists[$project['name']] as $task)
-                    <div class="task">
+                    <div class="task task{{ $task['id'] }}">
                         <input type="hidden" name="task_id" value="{{ $task['id'] }}">
                         <input type="hidden" name="order" value="{{ $task['order'] }}">
                         <div class="col-md-1">
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox">
                         </div>
                         <div class="col-md-8 task-content">{{ $task['content'] }}</div>
                         <div class="col-md-1"></div>
@@ -38,5 +38,4 @@
     </div>
 @endforeach
 @include('projects.modals')
-
 

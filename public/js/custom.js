@@ -118,6 +118,7 @@ $(function () {
     });
 
     bindProjectKeys();
+    bindTaskKeys();
 
     $('#change-project').validate({
         rules: {
@@ -148,27 +149,6 @@ $(function () {
             var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
             error.insertBefore(myElem);
         }
-    });
-
-    $('.task .glyphicon-trash').click(function () {
-        var url = 'tasks/' + $(this).parent().siblings('input[name=task_id]').val();
-        var task = $(this).closest('.task');
-        $.ajax({
-            url: url,
-            type: 'DELETE',
-            success: function () {
-                task.remove();
-            },
-            error: function () {
-                console.log('Smthing wrong!')
-            }
-        });
-    });
-
-    $('.change-task-btn').click(function () {
-        $('.task-name').modal('show');
-        $('#change-task input[name=task]').val($(this).parent().siblings('input[name=task_id]').val());
-        $('#change-task input[name=content]').val($(this).parent().siblings('.task-content').text());
     });
 
     $('#change-task').validate({
@@ -226,6 +206,32 @@ function bindProjectKeys() {
             }
         });
     });
+
+}
+
+function bindTaskKeys() {
+    $('body').off();
+    $('body').on('click', '.change-task-btn', function () {
+        $('.task-name').modal('show');
+        $('#change-task input[name=task]').val($(this).parent().siblings('input[name=task_id]').val());
+        $('#change-task input[name=content]').val($(this).parent().siblings('.task-content').text());
+    });
+
+    $('body').on('click', '.task .glyphicon-trash', function () {
+        var url = 'tasks/' + $(this).parent().siblings('input[name=task_id]').val();
+        var task = $(this).closest('.task');
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function () {
+                task.remove();
+            },
+            error: function () {
+                console.log('Smthing wrong!')
+            }
+        });
+    });
+
 
 }
 

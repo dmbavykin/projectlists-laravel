@@ -97,3 +97,8 @@ div.tl-title {
 .task:hover .glyphicon-pencil, .task:hover .glyphicon-trash{
     visibility: visible;
 }
+
+.add-task-block {
+    width: 100%;
+    height: 40px;
+}

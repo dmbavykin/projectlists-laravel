@@ -19,7 +19,13 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-
+        $task = new Task;
+        $task->content = $request->content;
+        $task->project_id = $request->project_id;
+        $task->order = $request->order;
+        $task->is_done = 0;
+        $task->save();
+        return view('projects.new_task', ['task' => $task]);
     }
 
     public function update(Request $request, $id)

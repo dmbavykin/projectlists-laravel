@@ -101,6 +101,7 @@ $(function () {
                     $('.new-project').modal('hide');
                     name.val('');
                     $(data).insertBefore('.add-project-block');
+                    bindProjectKeys();
                 },
                 error: function () {
                     console.log('Something wrong');
@@ -126,7 +127,7 @@ $(function () {
         },
         submitHandler: function () {
             $.ajax({
-                url: $('#change-project input[name=project]').val(),
+                url: '/projects/' + $('#change-project input[name=project]').val(),
                 type: 'PATCH',
                 data: {
                     name: $('#change-project input[name=name]').val()
@@ -193,7 +194,7 @@ function bindProjectKeys() {
     });
 
     $('div#app').on('click', 'i.remove-project', function() {
-        var url = $(this).parent().siblings('input[name=project]').val();
+        var url = '/projects/' + $(this).parent().siblings('input[name=project]').val();
         var list = $(this).closest('.container-fluid.tl-block');
         $.ajax({
             url: url,
@@ -205,6 +206,34 @@ function bindProjectKeys() {
                 console.log('Smthing wrong!')
             }
         });
+    });
+
+    $('div#app').on('click', '.add-task', function () {
+        var content = $(this).closest('.add-task-block').find('input');
+        var order = $(this).closest('.tl-block').find('input[name=order]:last').val();
+        var project_id = $(this).closest('.tl-block').find('input[name=project]').val();
+        var append_target = $(this).closest('.tl-block').find('.tl-body');
+        if (content.val()) {
+            $.ajax({
+                url: '/tasks',
+                type: 'POST',
+                data: {
+                    content: content.val(),
+                    order: order ? +order + 1 : 1,
+                    project_id: project_id
+                },
+                success: function (data) {
+                    content.val('');
+                    append_target.append(data);
+                    bindTaskKeys();
+                },
+                error: function () {
+                    console.log('Something wrong');
+                }
+
+            });
+        }
+
     });
 
 }

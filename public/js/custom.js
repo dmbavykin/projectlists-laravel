@@ -261,7 +261,13 @@ function bindTaskKeys() {
         });
     });
 
-
+    $('body').on('click', '.is-done', function () {
+        var url = '/tasks/done/' + $(this).closest('.task').find('input[name=task_id]').val();
+        $.ajax({
+            url: url,
+            type: 'POST'
+        });
+    });
 }
 
 function getRegistrationData() {

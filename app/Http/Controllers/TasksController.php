@@ -43,4 +43,11 @@ class TasksController extends Controller
     {
         Task::destroy($id);
     }
+
+    public function changeDoneStatus($id)
+    {
+        $task = Task::find($id);
+        $task->is_done = !$task->is_done;
+        $task->save();
+    }
 }

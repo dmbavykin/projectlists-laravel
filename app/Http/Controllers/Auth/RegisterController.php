@@ -80,6 +80,6 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-        return view('projects.creating_project_block');
+        return view('projects.modals');
     }
 }

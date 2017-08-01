@@ -301,7 +301,18 @@ function bindTaskKeys() {
         }
     });
 
-
+    $('body').on('change', '.deadline', function () {
+        var deadline = $(this).val();
+        var task_id = $(this).closest('.task').find('input[name=task_id]').val();
+        $.ajax({
+            url: '/tasks/deadline',
+            type: 'POST',
+            data: {
+                deadline: deadline,
+                id: task_id
+            }
+        });
+    });
 }
 
 function getRegistrationData() {

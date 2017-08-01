@@ -22,3 +22,4 @@ Route::resource('/projects', 'ProjectsController');
 Route::resource('/tasks', 'TasksController');
 Route::post('/tasks/done/{id}', 'TasksController@changeDoneStatus');
 Route::post('/tasks/order', 'TasksController@changeOrder');
+Route::post('/tasks/deadline', 'TasksController@changeDeadline');

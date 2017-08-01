@@ -58,4 +58,11 @@ class TasksController extends Controller
             $request->replacement_id
         );
     }
+
+    public function changeDeadline(Request $request)
+    {
+        $task = Task::find($request->id);
+        $task->deadline = $request->deadline;
+        $task->save();
+    }
 }

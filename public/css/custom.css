@@ -35,7 +35,7 @@ div.tl-head div {
     padding: 10px 0;
 }
 
-.tl-head div i.glyphicon-trash, .tl-head div i.glyphicon-pencil {
+.tl-head div i.glyphicon {
     cursor: pointer;
     color: #fff;
 }
@@ -81,11 +81,11 @@ div.tl-title {
     border-right: 1px solid #666;
 }
 
-.task .col-md-8 {
+.task .task-content {
     border-right: 1px solid #666;
 }
 
-.task .glyphicon-pencil, .task .glyphicon-trash {
+.task .glyphicon {
     visibility: hidden;
     cursor: pointer;
 }
@@ -94,7 +94,7 @@ div.tl-title {
     background-color: #ffffa8;
 }
 
-.task:hover .glyphicon-pencil, .task:hover .glyphicon-trash{
+.task:hover .glyphicon {
     visibility: visible;
 }
 

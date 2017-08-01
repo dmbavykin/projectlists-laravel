@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/projects', 'ProjectsController');
 Route::resource('/tasks', 'TasksController');
 Route::post('/tasks/done/{id}', 'TasksController@changeDoneStatus');
+Route::post('/tasks/order', 'TasksController@changeOrder');

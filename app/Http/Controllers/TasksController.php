@@ -50,4 +50,12 @@ class TasksController extends Controller
         $task->is_done = !$task->is_done;
         $task->save();
     }
+
+    public function changeOrder(Request $request)
+    {
+        return Task::swapOrderOfTasks(
+            $request->target_id,
+            $request->replacement_id
+        );
+    }
 }

@@ -268,6 +268,40 @@ function bindTaskKeys() {
             type: 'POST'
         });
     });
+
+    $('body').on('click', '.ordering .glyphicon', function () {
+        var task =  $(this).closest('.task');
+        var target_id = task.find('input[name=task_id]').val();
+        var target_order = task.find('input[name=order]').val();
+        var direction = $(this).hasClass('glyphicon-chevron-up');
+        var replacement = direction ? task.prev() : task.next();
+        var replacement_id = replacement.find('input[name=task_id]').val();
+        var replacement_order = replacement.find('input[name=order]').val();
+        if (replacement_id) {
+            $.ajax({
+                url: '/tasks/order',
+                type: 'POST',
+                data: {
+                    target_id: target_id,
+                    replacement_id: replacement_id
+                },
+                success: function (data) {
+                    if (data) {
+                        task.remove();
+                        task.find('input[name=order]').val(replacement_order);
+                        replacement.find('input[name=order]').val(target_order);
+                        direction ? task.insertBefore(replacement) : task.insertAfter(replacement);
+
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+    });
+
+
 }
 
 function getRegistrationData() {

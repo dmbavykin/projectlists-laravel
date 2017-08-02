@@ -22,8 +22,7 @@ class TasksController extends Controller
         $task = new Task;
         $task->content = $request->content;
         $task->project_id = $request->project_id;
-        $task->order = $request->order;
-        $task->is_done = 0;
+        $task->order = Task::getLastOrderOfProject($request->project_id) + 1;
         $task->save();
         return view('projects.new_task', ['task' => $task]);
     }
@@ -33,10 +32,10 @@ class TasksController extends Controller
         $task = Task::find($id);
         $task->content = $request->content;
         $task->save();
-        return array(
+        return [
             'id' => $task->id,
             'content' => $task->content
-        );
+        ];
     }
 
     public function destroy($id)

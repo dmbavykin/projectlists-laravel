@@ -29,4 +29,10 @@ class Task extends Model
             }
         }
     }
+
+    public static function getLastOrderOfProject($project_id)
+    {
+        $task = self::where('project_id', $project_id)->orderByDesc('order')->first();
+        return $task->order;
+    }
 }

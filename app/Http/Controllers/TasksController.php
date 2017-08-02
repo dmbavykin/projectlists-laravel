@@ -12,10 +12,6 @@ class TasksController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
-    {
-
-    }
 
     public function store(Request $request)
     {

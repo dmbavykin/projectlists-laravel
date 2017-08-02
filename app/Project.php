@@ -12,9 +12,9 @@ class Project extends Model
 
     protected $fillable = ['name', 'user_id'];
 
-    public function getProjects()
+    protected static function getProjects()
     {
-        $projects = Project::OfUser(Auth::user()->id)->get();
+        $projects = self::OfUser(Auth::user()->id)->get();
         return $projects->toArray();
     }
 
@@ -23,12 +23,12 @@ class Project extends Model
         return $query->where('user_id', $user_id);
     }
 
-    public function getProjectlists()
+    public static function getProjectslist()
     {
         $result = array();
-        $projects = $this->getProjects();
+        $projects = self::getProjects();
         foreach ($projects as $project) {
-            $result[$project['name']] = $this->getTasks($project['id']);
+            $result[$project['name']] = self::getTasks($project['id']);
         }
         return array(
             'projectlists' => $result,
@@ -36,9 +36,9 @@ class Project extends Model
         );
     }
 
-    public function getTasks($project_id)
+    protected static function getTasks($project_id)
     {
-        $tasks = Task::ofProject($project_id)->orderBy('order', 'ASC')->get();
+        $tasks = Task::ofProject($project_id)->orderBy('order')->get();
         return $tasks->toArray();
     }
 }

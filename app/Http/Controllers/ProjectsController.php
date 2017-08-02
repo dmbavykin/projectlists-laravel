@@ -14,9 +14,9 @@ class ProjectsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Project $project)
+    public function index()
     {
-        $data = $project->getProjectlists();
+        $data = Project::getProjectslist();
         return view('projects.main', ['projectlists' => $data['projectlists'], 'projects' => $data['projects']]);
     }
 

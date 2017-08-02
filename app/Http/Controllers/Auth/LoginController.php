@@ -39,7 +39,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request, Project $project)
+    public function login(Request $request)
     {
         $this->validateLogin($request);
 
@@ -49,16 +49,11 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            $data = $project->getProjectlists();
+            $data = Project::getProjectslist();
             return view('projects.auth_response', ['projectlists' => $data['projectlists'], 'projects' => $data['projects']]);
         }
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
-    }
-
-    public function dataForAuthorizedUser($projectlists)
-    {
-        return view('projects.auth_response', ['projectlists' => $projectlists]);
     }
 }

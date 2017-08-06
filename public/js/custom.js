@@ -71,8 +71,8 @@ $(function () {
                 success: function (data) {
                     setProjectlistsData(data);
                 },
-                error: function() {
-                    console.log('Something gonna bad');
+                error: function(data) {
+                    invalidAuth(data);
                 }
             });
         },
@@ -104,5 +104,10 @@ function getAuthData() {
 }
 
 function setProjectlistsData(data) {
-    $('div#app').html(data);
+    $('#app').html(data);
+}
+
+function invalidAuth(data) {
+    $('#password').val('');
+    $('.auth-error').text(jQuery.parseJSON(data.responseText).email);
 }

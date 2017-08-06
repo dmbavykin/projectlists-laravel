@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" id="auth-block">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                    <div class="text-danger auth-error text-center"></div>
                     <form class="form-horizontal" id="login-form">
                         {{ csrf_field() }}
 

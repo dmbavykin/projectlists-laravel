@@ -13,13 +13,16 @@ $(function () {
                     name: name.val()
                 },
                 success: function (data) {
-                    $('.new-project').modal('hide');
-                    name.val('');
-                    $(data).insertBefore('.add-project-block');
-                    bindProjectKeys();
+                    if (data) {
+                        $('.new-project').modal('hide');
+                        name.val('');
+                        $(data).insertBefore('.add-project-block');
+                        bindProjectKeys();
+                    }
+
                 },
                 error: function () {
-                    console.log('Something wrong');
+                    showErrorInsideModal('.new-project', 'Project isn`t created');
                 }
 
             });
@@ -228,4 +231,11 @@ function bindTaskKeys() {
             }
         });
     });
+}
+
+function showErrorInsideModal(selector, text) {
+    $(selector + ' .modal-content').prepend('<span class="text-danger">' + text + '</span>');
+    setTimeout(function () {
+        $(selector + ' .modal-content').find('span.text-danger').remove();
+    }, 3000);
 }

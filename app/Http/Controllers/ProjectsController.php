@@ -25,11 +25,11 @@ class ProjectsController extends Controller
         $project = new Project;
         $project->name = $request->name;
         $project->user_id = Auth::user()->id;
-        $project->save();
-        return view('projects.new_project', [
+
+        return $project->save() ? view('projects.new_project', [
             'name' => $project->name,
             'id' => $project->id
-        ]);
+        ]) : false;
     }
 
     public function update(Request $request, $id)

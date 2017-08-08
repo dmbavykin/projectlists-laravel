@@ -27,11 +27,11 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
         $task->content = $request->content;
-        $task->save();
-        return [
+
+        return $task->save() ? [
             'id' => $task->id,
             'content' => $task->content
-        ];
+        ] : false;
     }
 
     public function destroy($id)

@@ -84,11 +84,13 @@ $(function () {
                     content: $('#change-task input[name=content]').val()
                 },
                 success: function (data) {
-                    $('.task-name').modal('hide');
-                    $('.task' + data['id'] + ' .task-content').text(data['content']);
+                    if (data) {
+                        $('.task-name').modal('hide');
+                        $('.task' + data['id'] + ' .task-content').text(data['content']);
+                    }
                 },
                 error: function () {
-                    console.log('Something wrong');
+                    showErrorInsideModal('.task-name', 'Task wasn`t changed');
                 }
 
             });

@@ -36,11 +36,11 @@ class ProjectsController extends Controller
     {
         $project = Project::find($id);
         $project->name = $request->name;
-        $project->save();
-        return array(
+
+        return $project->save() ? array(
             'id' => $project->id,
             'name' => $project->name
-        );
+        ) : false;
     }
 
     public function destroy($id)

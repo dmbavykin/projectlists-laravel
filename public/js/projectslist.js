@@ -51,12 +51,14 @@ $(function () {
                     name: $('#change-project input[name=name]').val()
                 },
                 success: function (data) {
-                    $('.project-name').modal('hide');
-                    $('.project' + data['id'] + ' .tl-title').text(data['name']);
-                    bindProjectKeys();
+                    if (data) {
+                        $('.project-name').modal('hide');
+                        $('.project' + data['id'] + ' .tl-title').text(data['name']);
+                        bindProjectKeys();
+                    }
                 },
                 error: function () {
-                    console.log('Something wrong');
+                    showErrorInsideModal('.project-name', 'Project wasn`t renamed');
                 }
 
             });

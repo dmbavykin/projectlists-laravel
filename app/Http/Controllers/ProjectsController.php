@@ -22,6 +22,7 @@ class ProjectsController extends Controller
 
     public function store(Request $request)
     {
+        if (empty($request->name)) return false;
         $project = new Project;
         $project->name = $request->name;
         $project->user_id = Auth::user()->id;

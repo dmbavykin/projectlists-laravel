@@ -36,7 +36,7 @@ class TasksController extends Controller
 
     public function destroy($id)
     {
-        Task::destroy($id);
+        return Task::destroy($id);
     }
 
     public function changeDoneStatus($id)

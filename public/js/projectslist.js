@@ -122,7 +122,7 @@ function bindProjectKeys() {
             url: url,
             type: 'DELETE',
             success: function (data) {
-                data > 0 ? list.remove() : modalError('Project wasn`t finded');
+                data > 0 ? list.remove() : modalError('Project wasn`t found');
             },
             error: function () {
                 modalError('Project wasn`t removed');
@@ -174,11 +174,11 @@ function bindTaskKeys() {
         $.ajax({
             url: url,
             type: 'DELETE',
-            success: function () {
-                task.remove();
+            success: function (data) {
+                data > 0 ? task.remove() : modalError('Task wasn`t found');
             },
             error: function () {
-                console.log('Smthing wrong!')
+                modalError('Task wasn`t removed');
             }
         });
     });

@@ -121,11 +121,11 @@ function bindProjectKeys() {
         $.ajax({
             url: url,
             type: 'DELETE',
-            success: function () {
-                list.remove();
+            success: function (data) {
+                data > 0 ? list.remove() : modalError('Project wasn`t finded');
             },
             error: function () {
-                console.log('Smthing wrong!')
+                modalError('Project wasn`t removed');
             }
         });
     });
@@ -241,5 +241,13 @@ function showErrorInsideModal(selector, text) {
     $(selector + ' .modal-content').prepend('<span class="text-danger">' + text + '</span>');
     setTimeout(function () {
         $(selector + ' .modal-content').find('span.text-danger').remove();
+    }, 3000);
+}
+
+function modalError(text) {
+    $('.error-modal .modal-content').html('<div class="row text-center text-danger">' + text + '</div>');
+    $('.error-modal').modal('show');
+    setTimeout(function () {
+        $('.error-modal').modal('hide');
     }, 3000);
 }

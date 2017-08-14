@@ -32,9 +32,9 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    <span class="navbar-brand">
+                        TODO lists
+                    </span>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

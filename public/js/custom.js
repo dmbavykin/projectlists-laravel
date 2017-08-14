@@ -25,22 +25,6 @@ $(function () {
         errorElement: 'div',
         errorClass: "text-danger",
         validClass: 'input-success',
-        submitHandler: function () {
-            $.ajax({
-                url: '/register',
-                data: getRegistrationData(),
-                type: 'POST',
-                success: function (data) {
-                    setProjectlistsData(data);
-                },
-                error: function() {
-                    console.log('Something gonna bad');
-                }
-            });
-        },
-        invalidHandler: function () {
-            console.log('error');
-        },
         errorPlacement: function(error, element) {
             let myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
             error.insertBefore(myElem);
@@ -63,22 +47,6 @@ $(function () {
         errorElement: 'div',
         errorClass: "text-danger",
         validClass: 'input-success',
-        submitHandler: function () {
-            $.ajax({
-                url: '/login',
-                data: getAuthData(),
-                type: 'POST',
-                success: function (data) {
-                    setProjectlistsData(data);
-                },
-                error: function(data) {
-                    invalidAuth(data);
-                }
-            });
-        },
-        invalidHandler: function () {
-            console.log('error');
-        },
         errorPlacement: function(error, element) {
             let myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
             error.insertBefore(myElem);
@@ -86,28 +54,3 @@ $(function () {
     });
 
 });
-
-function getRegistrationData() {
-    return {
-        name: $('#name').val(),
-        email: $('#email').val(),
-        password: $('#password').val(),
-        password_confirmation: $('#password-confirm').val()
-    }
-}
-
-function getAuthData() {
-    return {
-        email: $('#email').val(),
-        password: $('#password').val()
-    }
-}
-
-function setProjectlistsData(data) {
-    $('#app').html(data);
-}
-
-function invalidAuth(data) {
-    $('#password').val('');
-    $('.auth-error').text(jQuery.parseJSON(data.responseText).email);
-}

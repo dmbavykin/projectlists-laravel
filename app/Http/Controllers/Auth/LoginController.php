@@ -49,8 +49,7 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            $data = Project::getProjectslist();
-            return view('projects.auth_response', ['projectlists' => $data['projectlists'], 'projects' => $data['projects']]);
+            return redirect('/home');
         }
         $this->incrementLoginAttempts($request);
 

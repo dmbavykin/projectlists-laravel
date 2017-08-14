@@ -36,6 +36,7 @@ class ProjectsController extends Controller
     public function update(Request $request, $id)
     {
         $project = Project::find($id);
+        if (!$project) return false;
         $project->name = $request->name;
 
         return $project->save() ? array(

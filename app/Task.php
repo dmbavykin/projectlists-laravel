@@ -32,7 +32,7 @@ class Task extends Model
 
     public static function getLastOrderOfProject($project_id)
     {
-        $task = self::where('project_id', $project_id)->orderByDesc('order')->first();
+        $task = self::where('project_id', $project_id)->orderBy('order', 'desc')->first();
         return $task ? $task->order : 0;
     }
 }

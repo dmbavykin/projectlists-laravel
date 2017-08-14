@@ -12,28 +12,28 @@ class Project extends Model
 
     protected $fillable = ['name', 'user_id'];
 
+    public function scopeOfUser($query, $user_id)
+    {
+        return $query->where('user_id', $user_id);
+    }
+
     protected static function getProjects()
     {
         $projects = self::OfUser(Auth::user()->id)->get();
         return $projects->toArray();
     }
 
-    public function scopeOfUser($query, $user_id)
-    {
-        return $query->where('user_id', $user_id);
-    }
-
     public static function getProjectslist()
     {
-        $result = array();
+        $result = [];
         $projects = self::getProjects();
         foreach ($projects as $project) {
             $result[$project['name']] = self::getTasks($project['id']);
         }
-        return array(
+        return [
             'projectlists' => $result,
             'projects' => $projects
-        );
+        ];
     }
 
     protected static function getTasks($project_id)

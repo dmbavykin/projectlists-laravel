@@ -15,6 +15,7 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
+        if (!$request->content) return false;
         $task = new Task;
         $task->content = $request->content;
         $task->project_id = $request->project_id;
@@ -26,6 +27,7 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $task = Task::find($id);
+        if (!$task) return false;
         $task->content = $request->content;
 
         return $task->save() ? [
@@ -42,6 +44,7 @@ class TasksController extends Controller
     public function changeDoneStatus($id)
     {
         $task = Task::find($id);
+        if (!$task) return false;
         $task->is_done = !$task->is_done;
         $task->save();
     }
@@ -57,6 +60,7 @@ class TasksController extends Controller
     public function changeDeadline(Request $request)
     {
         $task = Task::find($request->id);
+        if (!$task) return false;
         $task->deadline = $request->deadline;
         $task->save();
     }

@@ -216,8 +216,8 @@ function bindTaskKeys() {
 
                     }
                 },
-                error: function (data) {
-                    console.log(data);
+                error: function () {
+                    modalError('Order wasn`t changed');
                 }
             });
         }

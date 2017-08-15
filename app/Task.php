@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Task extends Model
 {
@@ -24,10 +25,17 @@ class Task extends Model
             $tasks[0] -> order = $tasks[1] -> order;
             $tasks[1] -> order = $first_task_order;
 
-            if ($tasks[1]->save() && $tasks[0]->save()) {
-                return 1;
+            DB::beginTransaction();
+            if (!$tasks[1]->save() || !$tasks[0]->save()) {
+                DB::rollback();
+                return false;
             }
+
+            DB::commit();
+            return 1;
+
         }
+        return false;
     }
 
     public static function getLastOrderOfProject($project_id)

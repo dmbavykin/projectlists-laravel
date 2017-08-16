@@ -6,7 +6,7 @@
             <div class="modal-content">
                 <form id="create-project">
                     <input type="text" class="form-control" id="new-project-name" name="name" placeholder="List name">
-                    <button type="submit" id="new-project" class="btn btn-primary">Add</button>
+                    <button id="new-project" class="btn btn-primary">Add</button>
                 </form>
 
             </div>

@@ -6,7 +6,7 @@
                 <form id="change-task">
                     <input type="hidden" name="task">
                     <input type="text" class="form-control" name="content">
-                    <button type="submit" class="btn btn-primary">Change</button>
+                    <button id="change-task-btn" class="btn btn-primary">Change</button>
                 </form>
             </div>
         </div>

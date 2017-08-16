@@ -1,121 +1,86 @@
 $(function () {
-
-    $('#create-project').validate({
-        rules: {
-            name: 'required'
-        },
-        submitHandler: function () {
-            var name = $('#new-project-name');
-            $.ajax({
-                url: '/projects',
-                type: 'POST',
-                data: {
-                    name: name.val()
-                },
-                success: function (data) {
-                    if (data) {
-                        $('.new-project').modal('hide');
-                        name.val('');
-                        $(data).insertBefore('.add-project-block');
-                        bindProjectKeys();
-                    }
-
-                },
-                error: function () {
-                    showErrorInsideModal('.new-project', 'Project isn`t created');
-                }
-
-            });
-        },
-        invalidHandler: function () {
-            console.log('error');
-        },
-        errorPlacement: function(error, element) {
-            var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
-            error.insertBefore(myElem);
-        }
-    });
-
     bindProjectKeys();
     bindTaskKeys();
-
-    $('#change-project').validate({
-        rules: {
-            name: 'required'
-        },
-        submitHandler: function () {
-            $.ajax({
-                url: '/projects/' + $('#change-project input[name=project]').val(),
-                type: 'PATCH',
-                data: {
-                    name: $('#change-project input[name=name]').val()
-                },
-                success: function (data) {
-                    if (data) {
-                        $('.project-name').modal('hide');
-                        $('.project' + data['id'] + ' .tl-title').text(data['name']);
-                        bindProjectKeys();
-                    }
-                },
-                error: function () {
-                    showErrorInsideModal('.project-name', 'Project wasn`t renamed');
-                }
-
-            });
-        },
-        invalidHandler: function () {
-            console.log('error');
-        },
-        errorPlacement: function(error, element) {
-            var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
-            error.insertBefore(myElem);
-        }
+    $('#new-project').click(function () {
+        formHandler('#create-project', {name: 'required'}, ajax.create_project);
     });
-
-    $('#change-task').validate({
-        rules: {
-            content: 'required'
-        },
-        submitHandler: function () {
-            $.ajax({
-                url: '/tasks/' + $('#change-task input[name=task]').val(),
-                type: 'PATCH',
-                data: {
-                    content: $('#change-task input[name=content]').val()
-                },
-                success: function (data) {
-                    if (data) {
-                        $('.task-name').modal('hide');
-                        $('.task' + data['id'] + ' .task-content').text(data['content']);
-                    }
-                },
-                error: function () {
-                    showErrorInsideModal('.task-name', 'Task wasn`t changed');
-                }
-
-            });
-        },
-        invalidHandler: function () {
-            console.log('error');
-        },
-        errorPlacement: function(error, element) {
-            var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
-            error.insertBefore(myElem);
-        }
+    $('#change-project-btn').click(function () {
+        formHandler('#change-project', {name: 'required'}, ajax.change_project);
     });
-
-
+    $('#change-task-btn').click(function () {
+        formHandler('#change-task', {content: "required"}, ajax.change_task);
+    });
+    $('#new-project-name').change(function () {
+        ajax.create_project.data.name = $(this).val();
+    });
+    $('#change-project input[name=name]').change(function () {
+        ajax.change_project.data.name = $(this).val();
+        ajax.change_project.url = '/projects/' + $('#change-project input[name=project]').val();
+    });
+    $('#change-task input[name=content]').change(function () {
+        ajax.change_task.data.content = $('#change-task input[name=content]').val();
+        ajax.change_task.url = '/tasks/' + $('#change-task input[name=task]').val();
+    });
 });
+var ajax = {
+    create_project: {
+        url: '/projects',
+        type: 'POST',
+        data: {
+            name: ''
+        },
+        success: function (data) {
+            if (!data) return false;
+            $('.new-project').modal('hide');
+            $('new-project-name').val('');
+            $(data).insertBefore('.add-project-block');
+            bindProjectKeys();
+        },
+        error: function () {
+            showErrorInsideModal('.new-project', 'Project isn`t created');
+        }
+    },
+    change_project : {
+        url: '',
+        type: 'PATCH',
+        data: {
+            name: ''
+        },
+        success: function (data) {
+            if (!data) return false;
+            $('.project-name').modal('hide');
+            $('.project' + data['id'] + ' .tl-title').text(data['name']);
+            bindProjectKeys();
+        },
+        error: function () {
+            showErrorInsideModal('.project-name', 'Project wasn`t renamed');
+        }
+    },
+    change_task: {
+        url: '',
+        type: 'PATCH',
+        data: {
+            content: ''
+        },
+        success: function (data) {
+            if (!data) return false;
+            $('.task-name').modal('hide');
+            $('.task' + data['id'] + ' .task-content').text(data['content']);
+        },
+        error: function () {
+            showErrorInsideModal('.task-name', 'Task wasn`t changed');
+        }
+    }
+};
 
 function bindProjectKeys() {
-    $('div#app').off();
-    $('div#app').on('click', '.change-project-btn', function() {
+    $('#app').off();
+    $('#app').on('click', '.change-project-btn', function() {
         $('.project-name').modal('show');
         $('#change-project input[name=project]').val($(this).parent().siblings('input[name=project]').val());
         $('#change-project input[name=name]').val($(this).parent().siblings('.tl-title').text());
     });
-
-    $('div#app').on('click', 'i.remove-project', function() {
+    $('#app').on('click', 'i.remove-project', function() {
         var url = '/projects/' + $(this).parent().siblings('input[name=project]').val();
         var list = $(this).closest('.container-fluid.tl-block');
         $.ajax({
@@ -129,8 +94,7 @@ function bindProjectKeys() {
             }
         });
     });
-
-    $('div#app').on('click', '.add-task', function () {
+    $('#app').on('click', '.add-task', function () {
         var content = $(this).closest('.add-task-block').find('input');
         var order = $(this).closest('.tl-block').find('input[name=order]:last').val();
         var project_id = $(this).closest('.tl-block').find('input[name=project]').val();
@@ -152,12 +116,9 @@ function bindProjectKeys() {
                 error: function () {
                     console.log('Something wrong');
                 }
-
             });
         }
-
     });
-
 }
 
 function bindTaskKeys() {
@@ -167,7 +128,6 @@ function bindTaskKeys() {
         $('#change-task input[name=task]').val($(this).parent().siblings('input[name=task_id]').val());
         $('#change-task input[name=content]').val($(this).parent().siblings('.task-content').text());
     });
-
     $('body').on('click', '.task .glyphicon-trash', function () {
         var url = 'tasks/' + $(this).parent().siblings('input[name=task_id]').val();
         var task = $(this).closest('.task');
@@ -182,7 +142,6 @@ function bindTaskKeys() {
             }
         });
     });
-
     $('body').on('click', '.is-done', function () {
         var url = '/tasks/done/' + $(this).closest('.task').find('input[name=task_id]').val();
         $.ajax({
@@ -190,7 +149,6 @@ function bindTaskKeys() {
             type: 'POST'
         });
     });
-
     $('body').on('click', '.ordering .glyphicon', function () {
         var task =  $(this).closest('.task');
         var target_id = task.find('input[name=task_id]').val();
@@ -208,13 +166,11 @@ function bindTaskKeys() {
                     replacement_id: replacement_id
                 },
                 success: function (data) {
-                    if (data) {
-                        task.remove();
-                        task.find('input[name=order]').val(replacement_order);
-                        replacement.find('input[name=order]').val(target_order);
-                        direction ? task.insertBefore(replacement) : task.insertAfter(replacement);
-
-                    }
+                    if (!data) return false;
+                    task.remove();
+                    task.find('input[name=order]').val(replacement_order);
+                    replacement.find('input[name=order]').val(target_order);
+                    direction ? task.insertBefore(replacement) : task.insertAfter(replacement);
                 },
                 error: function () {
                     modalError('Order wasn`t changed');
@@ -234,6 +190,22 @@ function bindTaskKeys() {
                 id: task_id
             }
         });
+    });
+}
+
+function formHandler(selector, rules, ajax) {
+    $(selector).validate({
+        rules: rules,
+        submitHandler: function () {
+            $.ajax(ajax);
+        },
+        invalidHandler: function () {
+            console.log('error');
+        },
+        errorPlacement: function(error, element) {
+            var myElem = $.inArray(element.attr("name"), ['fname', 'lname']) ? element : '#lastname';
+            error.insertBefore(myElem);
+        }
     });
 }
 

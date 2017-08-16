@@ -6,7 +6,7 @@
                 <form id="change-project">
                     <input type="hidden" name="project">
                     <input type="text" class="form-control" name="name" placeholder="New name">
-                    <button type="submit" class="btn btn-primary">Change</button>
+                    <button id="change-project-btn" class="btn btn-primary">Change</button>
                 </form>
             </div>
         </div>

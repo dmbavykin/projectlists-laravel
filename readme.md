@@ -49,3 +49,71 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+## SQL tasks
+1. Get all statuses, not repeating, alphabetically ordered
+```php
+SELECT DISTINCT status
+FROM tasks
+ORDER BY status;
+```
+2. Get the count of all tasks in each project, order by tasks count descending\
+```php
+SELECT projects.id as project, COUNT(tasks.id) AS task_quantity 
+FROM tasks RIGHT JOIN projects ON tasks.project_id = projects.id 
+GROUP BY project 
+ORDER BY task_quantity DESC
+```
+3. Get the count of all tasks in each project, order by projects names
+```php
+SELECT projects.name as project, COUNT(tasks.id) AS task_quantity 
+FROM tasks RIGHT JOIN projects ON tasks.project_id=projects.id 
+GROUP BY project 
+ORDER BY project
+```
+4. Get the tasks for all projects having the name beginning with “N” letter
+```php
+SELECT projects.name as project, tasks.name as task 
+FROM tasks INNER JOIN projects ON tasks.project_id=projects.id 
+WHERE tasks.name LIKE 'N%'
+```
+5. Get the list of all projects containing the ‘a’ letter in the middle of the name, and
+   show the tasks count near each project. Mention that there can exist projects without
+   tasks and tasks with project_id=NULL
+```php
+SELECT projects.name as project, COUNT(tasks.id) AS task_quantity 
+FROM projects LEFT JOIN tasks ON tasks.project_id = projects.id 
+WHERE projects.name LIKE '_%a%_' 
+GROUP BY projects.id
+```
+6. Get the list of tasks with duplicate names. Order alphabetically
+```php
+SELECT name as repeated 
+FROM tasks
+GROUP BY name
+HAVING COUNT(*)>1
+```
+7. Get the list of tasks having several exact matches of both name and status, from
+   the project ‘Garage’. Order by matches count.
+```php
+SELECT tasks.name, tasks.status, COUNT(tasks.name) as counter 
+FROM tasks INNER JOIN ( 
+    SELECT * FROM tasks 
+) as duplicate ON tasks.id = duplicate.id 
+WHERE tasks.project_id = ( 
+    SELECT id FROM projects WHERE name = 'Garage' 
+) 
+AND tasks.name = duplicate.status 
+GROUP BY tasks.name, tasks.status 
+ORDER BY counter
+```
+8. Get the list of project names having more than 10 tasks in status ‘completed’. Order
+   by project_id
+```php
+SELECT projects.name as project, COUNT(tasks.id) as quantity  
+FROM tasks INNER JOIN projects ON projects.id = tasks.project_id 
+WHERE tasks.status = 'completed' 
+GROUP BY project 
+HAVING COUNT(quantity)>10 
+ORDER BY project
+```

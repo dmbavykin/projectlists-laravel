@@ -1,0 +1,183 @@
+#register-form .form-group .text-danger {
+    font-weight: 900;
+}
+
+.text-danger + input {
+    border-color: #a94442;
+}
+
+.text-danger + .input-success {
+    border-color: #3c763d;
+}
+
+.text-danger + input:focus {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169,68,66,.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169,68,66,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169,68,66,.6);
+}
+
+.text-danger + .input-success:focus {
+    border-color: #3c763d;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #67b168;
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #67b168;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #67b168;
+}
+
+.tl-head-block div {
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.tl-head {
+    background-color: #4976b2;
+    height: 40px;
+}
+
+.tl-head div {
+    padding: 10px 0;
+}
+
+.tl-head .glyphicon {
+    cursor: pointer;
+    color: #fff;
+}
+
+.tl-head .glyphicon-calendar {
+    font-size: 20px;
+    cursor: default;
+}
+
+.tl-head div .glyphicon-trash:hover, .tl-head div .glyphicon-pencil:hover {
+    text-shadow: 1px 1px 2px #fff;
+}
+
+.tl-title {
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.tl-block {
+    margin-top: 30px;
+}
+
+.tl-body {
+    border:1px solid #4976b2;
+}
+
+.add-project-block {
+    margin-top: 20px;
+}
+
+.add-project-block button {
+    background-color: #4976b2;
+}
+
+.modal-content {
+    padding: 10px 10px;
+}
+
+.modal-content button{
+    margin-top: 15px;
+}
+
+.task-adding {
+    width: 90%;
+}
+
+.task {
+    width: 100%;
+    height: 36px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.task div {
+    padding: 7px 0 0;
+    height:100%;
+    vertical-align: middle;
+}
+.task .col-md-1:first-of-type {
+    border-right: 1px solid #4976b2;
+}
+
+.task .task-content {
+    border-right: 1px solid #4976b2;
+    padding-left: 15px;
+}
+
+.task .glyphicon {
+    visibility: hidden;
+    cursor: pointer;
+    top: 5px;
+}
+
+.task:hover {
+    background-color: #ffffa8;
+}
+
+.task:hover .glyphicon {
+    visibility: visible;
+}
+
+.add-task-block {
+    width: 100%;
+    height: 55px;
+    background-color: #4976b2;
+    padding-top: 10px;
+    border-top: 1px solid #fff;
+}
+
+.add-task-block .glyphicon-plus {
+    font-size: 22px;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.deadline {
+    margin-bottom: 5px;
+}
+
+label {
+    display: inline;
+}
+
+.is-done {
+    display: none;
+}
+
+.is-done + label {
+    border: 2px solid #4976b2;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+
+.is-done + label:active, .is-done:checked + label:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.is-done:checked + label {
+    border: 2px solid #4976b2;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    color: #99a1a7;
+}
+
+.is-done:checked + label:after {
+    content: '\2714';
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    color: #4976b2;
+}
+
+.deadline {
+    border: 1px solid #4976b2;
+    background-color: #fbffe3;
+    color: #3256b2;
+    font-size: 12px;
+}

@@ -96,7 +96,6 @@ function bindProjectKeys() {
     });
     $('#app').on('click', '.add-task', function () {
         var content = $(this).closest('.add-task-block').find('input');
-        var order = $(this).closest('.tl-block').find('input[name=order]:last').val();
         var project_id = $(this).closest('.tl-block').find('input[name=project]').val();
         var append_target = $(this).closest('.tl-block').find('.tl-body');
         if (content.val()) {
@@ -105,7 +104,6 @@ function bindProjectKeys() {
                 type: 'POST',
                 data: {
                     content: content.val(),
-                    order: order ? +order + 1 : 1,
                     project_id: project_id
                 },
                 success: function (data) {
